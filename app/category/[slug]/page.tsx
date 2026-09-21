@@ -51,12 +51,15 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
       <main className="container mx-auto px-4 py-6">
         {/* Category header */}
         <div
-          className="rounded-lg p-6 mb-8 text-white"
+          className="rounded-2xl p-6 md:p-8 mb-8 text-white relative overflow-hidden"
           style={{ backgroundColor: category.color }}
         >
-          <h1 className="text-2xl font-black mb-1">{category.name}</h1>
+          <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent" />
+          <div className="relative">
+          <h1 className="text-2xl md:text-3xl font-black mb-1">{category.name}</h1>
           <p className="text-white/80 text-sm mb-2">{category.description}</p>
-          <span className="text-white/70 text-xs">{allArticles.length} خبر</span>
+          <span className="text-white/70 text-xs">{allArticles.length.toLocaleString('fa-IR')} خبر</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">

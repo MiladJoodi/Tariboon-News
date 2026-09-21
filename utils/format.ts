@@ -20,10 +20,13 @@ export function formatPersianNumber(n: number): string {
 }
 
 export function formatViewCount(n: number): string {
-  if (n >= 1000) {
-    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K'
+  if (n >= 1000000) {
+    return `${(n / 1000000).toLocaleString('fa-IR', { maximumFractionDigits: 1 })} میلیون`
   }
-  return n.toString()
+  if (n >= 1000) {
+    return `${(n / 1000).toLocaleString('fa-IR', { maximumFractionDigits: 1 })} هزار`
+  }
+  return n.toLocaleString('fa-IR')
 }
 
 export function calculateReadingTime(content: string): number {

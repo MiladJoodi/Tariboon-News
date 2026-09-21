@@ -9,12 +9,12 @@ export default function NotFound() {
   const recent = getLatestArticles(4)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
 
       <main className="container mx-auto px-4 py-16 text-center">
         <div className="max-w-md mx-auto mb-12">
-          <div className="text-8xl font-black text-[#DC2626] mb-4 opacity-20">۴۰۴</div>
+          <div className="font-display text-8xl text-primary/20 mb-4 leading-none">۴۰۴</div>
           <h1 className="text-2xl font-black text-foreground mb-3">صفحه یافت نشد</h1>
           <p className="text-muted-foreground mb-8">
             متاسفیم، صفحه‌ای که دنبالش بودید وجود ندارد یا حذف شده است.
@@ -22,14 +22,14 @@ export default function NotFound() {
           <div className="flex items-center justify-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#DC2626] text-white rounded-lg text-sm font-medium hover:bg-[#b91c1c] transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors"
             >
               <Home className="w-4 h-4" />
               صفحه اصلی
             </Link>
             <Link
               href="/search"
-              className="flex items-center gap-2 px-5 py-2.5 border border-border rounded-lg text-sm font-medium hover:bg-accent transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 border border-border rounded-xl text-sm font-medium hover:bg-accent transition-colors"
             >
               <Search className="w-4 h-4" />
               جستجو

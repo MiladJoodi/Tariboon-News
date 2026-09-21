@@ -4,10 +4,12 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
-  LayoutDashboard, FileText, FolderOpen, Tag, Users, MessageSquare, Settings, ChevronLeft, Menu, X
+  LayoutDashboard, FileText, FolderOpen, Tag, Users, MessageSquare, Settings, ChevronLeft, ExternalLink, RotateCcw
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
+import { useAdminStore } from '@/store/admin-store'
+import { toast } from 'sonner'
 
 const navItems = [
   { href: '/admin', icon: LayoutDashboard, label: 'داشبورد' },
@@ -22,35 +24,42 @@ const navItems = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const resetToSeed = useAdminStore((s) => s.resetToSeed)
 
   return (
-    <div className="min-h-screen bg-muted flex" dir="rtl">
-      {/* Sidebar */}
-      <aside className={cn(
-        'bg-[#0F172A] text-white flex flex-col transition-all duration-200 shrink-0',
-        sidebarOpen ? 'w-56' : 'w-14'
-      )}>
-        {/* Logo */}
-        <div className="h-14 flex items-center gap-2 px-3 border-b border-white/10">
-          <div className="w-8 h-8 bg-[#DC2626] rounded flex items-center justify-center shrink-0">
-            <span className="font-black text-sm">ت</span>
+    <div className="min-h-screen bg-background flex" dir="rtl">
+      <aside
+        className={cn(
+          'bg-[#243447] text-white flex flex-col transition-all duration-200 shrink-0 border-l border-white/5',
+          sidebarOpen ? 'w-56' : 'w-14'
+        )}
+      >
+        <div className="h-12 flex items-center gap-2 px-3 border-b border-white/10">
+          <div className="w-8 h-8 brand-mark rounded-md flex items-center justify-center shrink-0">
+            <span className="text-white font-black text-sm">ت</span>
           </div>
-          {sidebarOpen && <span className="font-black text-lg">تریبون</span>}
+          {sidebarOpen && (
+            <div className="leading-none">
+              <span className="font-black text-base block">تریبون</span>
+              <span className="text-[9px] text-white/45">پنل مدیریت</span>
+            </div>
+          )}
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 py-3 space-y-0.5 px-2">
+        <nav className="flex-1 py-2 space-y-0.5 px-2">
           {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href))
+            const isActive =
+              pathname === item.href ||
+              (item.href !== '/admin' && pathname.startsWith(item.href))
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-2.5 px-2.5 py-2 rounded-md text-sm transition-colors',
+                  'flex items-center gap-2.5 px-2.5 py-2 rounded-md text-[13px] transition-colors',
                   isActive
-                    ? 'bg-[#DC2626] text-white'
-                    : 'text-gray-400 hover:text-white hover:bg-white/10'
+                    ? 'bg-primary text-white'
+                    : 'text-[#b7c2d0] hover:text-white hover:bg-white/10'
                 )}
               >
                 <item.icon className="w-4 h-4 shrink-0" />
@@ -60,11 +69,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        {/* Collapse button */}
-        <div className="px-2 pb-4">
+        <div className="px-2 pb-3 space-y-1">
+          {sidebarOpen && (
+            <button
+              type="button"
+              onClick={() => {
+                resetToSeed()
+                toast.success('داده‌ها به حالت اولیه بازگشت')
+              }}
+              className="w-full flex items-center gap-2 px-2.5 py-2 rounded-md text-[#b7c2d0] hover:text-white hover:bg-white/10 transition-colors text-xs cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              بازنشانی داده
+            </button>
+          )}
           <button
+            type="button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-full flex items-center justify-center gap-2 px-2 py-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 transition-colors text-sm"
+            className="w-full flex items-center justify-center gap-2 px-2 py-2 rounded-md text-[#b7c2d0] hover:text-white hover:bg-white/10 transition-colors text-sm cursor-pointer"
           >
             <ChevronLeft className={cn('w-4 h-4 transition-transform', !sidebarOpen && 'rotate-180')} />
             {sidebarOpen && 'بستن'}
@@ -72,25 +94,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top bar */}
-        <header className="h-14 bg-card border-b border-border flex items-center justify-between px-4 shrink-0">
-          <div className="text-sm font-medium text-foreground">پنل مدیریت تریبون</div>
+        <header className="h-12 bg-card border-b border-border flex items-center justify-between px-4 shrink-0">
+          <div className="text-[13px] font-bold text-foreground flex items-center gap-2">
+            <span className="w-1 h-3.5 bg-primary rounded-sm" />
+            پنل مدیریت تریبون
+          </div>
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
               مشاهده سایت
             </Link>
-            <div className="w-7 h-7 bg-[#DC2626] rounded-full flex items-center justify-center text-white text-xs font-bold">
+            <div className="w-7 h-7 brand-mark rounded-md flex items-center justify-center text-white text-xs font-bold">
               م
             </div>
           </div>
         </header>
 
-        {/* Content */}
-        <main className="flex-1 overflow-auto p-6">
-          {children}
-        </main>
+        <main className="flex-1 overflow-auto p-4 md:p-5">{children}</main>
       </div>
 
       <Toaster position="bottom-left" richColors dir="rtl" />

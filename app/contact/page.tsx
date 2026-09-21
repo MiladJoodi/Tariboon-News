@@ -42,9 +42,9 @@ export default function ContactPage() {
                 { icon: Github, title: 'گیت‌هاب پروژه', value: 'MiladJoodi/Tariboon-News', href: 'https://github.com/MiladJoodi/Tariboon-News' },
                 { icon: Linkedin, title: 'لینکدین', value: 'linkedin.com/in/joodi', href: 'https://www.linkedin.com/in/joodi/' },
               ].map((item) => (
-                <a key={item.title} href={item.href} target="_blank" rel="noopener noreferrer" className="bg-card border border-border rounded-lg p-4 flex gap-3 hover:border-[#DC2626] transition-colors">
-                  <div className="w-10 h-10 bg-[#DC2626]/10 rounded-lg flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-[#DC2626]" />
+                <a key={item.title} href={item.href} target="_blank" rel="noopener noreferrer" className="bg-card border border-border rounded-2xl p-4 flex gap-3 hover:border-primary transition-colors">
+                  <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <item.icon className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <div className="font-bold text-sm text-foreground mb-0.5">{item.title}</div>

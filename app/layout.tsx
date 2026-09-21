@@ -6,11 +6,11 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: {
-    default: "تریبون | Tribune",
+    default: "تریبون | اخبار ایران و جهان",
     template: "%s | تریبون",
   },
-  description: "تریبون - پایگاه خبری جامع برای آخرین اخبار ایران و جهان",
-  keywords: ["اخبار", "خبر", "ایران", "سیاست", "اقتصاد", "ورزش", "فرهنگ"],
+  description: "تریبون — پایگاه خبری جامع برای آخرین اخبار ایران و جهان با پوشش سیاسی، اقتصادی، ورزشی و فناوری",
+  keywords: ["اخبار", "خبر", "ایران", "سیاست", "اقتصاد", "ورزش", "فرهنگ", "تریبون"],
   authors: [{ name: "تریبون" }],
   creator: "تریبون",
   metadataBase: new URL("https://tribune.ir"),
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     locale: "fa_IR",
     url: "https://tribune.ir",
     siteName: "تریبون",
-    title: "تریبون | Tribune",
-    description: "تریبون - پایگاه خبری جامع برای آخرین اخبار ایران و جهان",
+    title: "تریبون | اخبار ایران و جهان",
+    description: "تریبون — پایگاه خبری جامع برای آخرین اخبار ایران و جهان",
   },
   twitter: {
     card: "summary_large_image",
-    title: "تریبون | Tribune",
-    description: "تریبون - پایگاه خبری جامع برای آخرین اخبار ایران و جهان",
+    title: "تریبون | اخبار ایران و جهان",
+    description: "تریبون — پایگاه خبری جامع برای آخرین اخبار ایران و جهان",
   },
   robots: {
     index: true,
@@ -44,7 +44,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
       </head>

@@ -43,12 +43,16 @@ Tariboon (تریبون) is a fully-featured Persian news portal with 50 articles
 
 ### Public Site
 
-- **Home** — hero featured articles, latest news grid, breaking news ticker, trending sidebar
-- **Article Page** — full content, reading progress bar, share buttons, related articles, comment form
+- **Home** — brand hero, featured stories with real imagery, latest feed, trending sidebar
+- **Article Page** — reading progress, likes, bookmarks, font size, print, share, related articles, comments
+- **Command Search** — quick search with `Ctrl/Cmd + K`
+- **Bookmarks** — save articles locally in the browser
+- **Newsletter** — email signup persisted in localStorage
+- **Trending / Authors / Privacy** — dedicated production-style pages
 - **Category Pages** — filtered articles with sort options and pagination
-- **Search** — real-time full-text search across titles, excerpts, authors, and tags
+- **Search** — full-text search across titles, excerpts, authors, and tags
 - **Archive** — full article list with multi-filter (category, sort, date)
-- **Author Profiles** — bio, social links, article history
+- **Author Profiles** — bio, avatar, article history
 - **Tag Pages** — grouped articles by tag
 - **About & Contact** — team display, contact form with toast feedback
 
@@ -60,14 +64,15 @@ Tariboon (تریبون) is a fully-featured Persian news portal with 50 articles
 - **Categories & Tags** — add, edit, delete
 - **Authors** — view and edit author profiles
 - **Settings** — site configuration fields
+- **Persistence** — admin changes saved to localStorage + one-click reset to seed data
 
 ### Design & UX
 
-- Full **RTL** layout (right-to-left) with Persian locale (`fa-IR`)
+- Full **RTL** layout with Persian locale (`fa-IR`)
+- Custom brand system: ink navy + signal crimson, **Lalezar** display + **Vazirmatn** body
 - **Dark / Light mode** with `next-themes`
-- **Vazirmatn** font — the standard Persian web font
-- Breaking news badges with pulse animation
-- Skeleton loaders for perceived performance
+- Category-matched Unsplash imagery for all 50 articles and author avatars
+- Mega category menu, breaking ticker, motion and hover polish
 - Fully **responsive** — mobile, tablet, desktop
 
 ---

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { categories } from '@/data/categories'
 import { ArrowUp } from 'lucide-react'
+import { NewsletterForm } from '@/components/newsletter-form'
 
 const SOCIAL_LINKS = [
   { label: 'گیت‌هاب', href: 'https://github.com/MiladJoodi/Tariboon-News' },
@@ -13,36 +14,36 @@ export function Footer() {
   const year = new Date().toLocaleDateString('fa-IR', { year: 'numeric' })
 
   return (
-    <footer className="bg-[#0F172A] text-gray-300 mt-12">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* About */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-[#DC2626] rounded flex items-center justify-center">
+    <footer className="mt-6 bg-[#243447] text-[#e8edf4]">
+      <div className="container mx-auto px-4 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-4">
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-9 h-9 brand-mark rounded-md flex items-center justify-center">
                 <span className="text-white font-black text-sm">ت</span>
               </div>
               <span className="text-xl font-black text-white">تریبون</span>
             </div>
-            <p className="text-sm leading-relaxed text-gray-400">
-              تریبون پایگاه خبری جامع برای پوشش آخرین اخبار ایران و جهان است. ما متعهد به ارائه اخبار دقیق، سریع و بی‌طرفانه هستیم.
+            <p className="text-sm leading-relaxed text-[#b7c2d0] mb-5 max-w-sm">
+              پایگاه خبری جامع برای پوشش اخبار ایران و جهان.
             </p>
+            <NewsletterForm variant="dark" />
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h3 className="text-white font-bold mb-4">دسترسی سریع</h3>
+          <div className="lg:col-span-2">
+            <h3 className="text-white font-bold mb-3 text-sm">دسترسی</h3>
             <ul className="space-y-2 text-sm">
               {[
                 { href: '/', label: 'صفحه اصلی' },
-                { href: '/archive', label: 'آرشیو اخبار' },
-                { href: '/search', label: 'جستجو' },
-                { href: '/about', label: 'درباره ما' },
-                { href: '/contact', label: 'تماس با ما' },
-                { href: '/admin', label: 'پنل مدیریت' },
+                { href: '/live', label: 'پخش زنده' },
+                { href: '/markets', label: 'بازار لحظه‌ای' },
+                { href: '/trending', label: 'پربازدید' },
+                { href: '/archive', label: 'آرشیو' },
+                { href: '/authors', label: 'نویسندگان' },
+                { href: '/privacy', label: 'حریم خصوصی' },
               ].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="hover:text-white transition-colors">
+                  <Link href={l.href} className="text-[#b7c2d0] hover:text-white transition-colors">
                     {l.label}
                   </Link>
                 </li>
@@ -50,17 +51,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Categories */}
-          <div>
-            <h3 className="text-white font-bold mb-4">دسته‌بندی‌ها</h3>
-            <ul className="space-y-2 text-sm grid grid-cols-2 gap-x-4">
-              {categories.slice(0, 8).map((cat) => (
+          <div className="lg:col-span-3">
+            <h3 className="text-white font-bold mb-3 text-sm">سرویس‌ها</h3>
+            <ul className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+              {categories.slice(0, 10).map((cat) => (
                 <li key={cat.slug}>
-                  <Link
-                    href={`/category/${cat.slug}`}
-                    className="hover:text-white transition-colors flex items-center gap-1.5"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: cat.color }} />
+                  <Link href={`/category/${cat.slug}`} className="text-[#b7c2d0] hover:text-white">
                     {cat.name}
                   </Link>
                 </li>
@@ -68,38 +64,39 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-white font-bold mb-4">لینک‌ها</h3>
-            <div className="flex flex-col gap-2 mt-2">
+          <div className="lg:col-span-3">
+            <h3 className="text-white font-bold mb-3 text-sm">ارتباط</h3>
+            <div className="flex flex-col gap-2">
               {SOCIAL_LINKS.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                  className="text-sm text-[#b7c2d0] hover:text-white"
                 >
                   {s.label}
                 </a>
               ))}
+              <Link href="/admin" className="text-sm text-[#b7c2d0] hover:text-white">
+                پنل مدیریت
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between text-xs text-gray-500">
-          <span>© {year} تریبون — تمام حقوق محفوظ است</span>
-          <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-            className="flex items-center gap-1 hover:text-gray-300 transition-colors"
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between text-xs text-[#8a97a8]">
+          <span>© {year} تریبون</span>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-1 hover:text-white cursor-pointer"
           >
             <ArrowUp className="w-3 h-3" />
-            بازگشت به بالا
-          </a>
+            بالا
+          </button>
         </div>
       </div>
     </footer>

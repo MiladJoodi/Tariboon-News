@@ -1,6 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { Article, Author, Category, Comment, Tag } from '@/types'
 import { articles as initialArticles } from '@/data/articles'
 import { authors as initialAuthors } from '@/data/authors'
@@ -14,84 +15,91 @@ interface AdminStore {
   categories: Category[]
   tags: Tag[]
   comments: Comment[]
+  resetToSeed: () => void
 
-  // Article actions
   addArticle: (article: Article) => void
   updateArticle: (id: string, updates: Partial<Article>) => void
   deleteArticle: (id: string) => void
   deleteArticles: (ids: string[]) => void
 
-  // Comment actions
   approveComment: (id: string) => void
   rejectComment: (id: string) => void
   deleteComment: (id: string) => void
 
-  // Category actions
   addCategory: (category: Category) => void
   updateCategory: (id: string, updates: Partial<Category>) => void
   deleteCategory: (id: string) => void
 
-  // Tag actions
   addTag: (tag: Tag) => void
   deleteTag: (id: string) => void
 
-  // Author actions
   updateAuthor: (id: string, updates: Partial<Author>) => void
 }
 
-export const useAdminStore = create<AdminStore>((set) => ({
+const seed = {
   articles: initialArticles,
   authors: initialAuthors,
   categories: initialCategories,
   tags: initialTags,
   comments: initialComments,
+}
 
-  addArticle: (article) =>
-    set((state) => ({ articles: [article, ...state.articles] })),
+export const useAdminStore = create<AdminStore>()(
+  persist(
+    (set) => ({
+      ...seed,
 
-  updateArticle: (id, updates) =>
-    set((state) => ({
-      articles: state.articles.map((a) => (a.id === id ? { ...a, ...updates } : a)),
-    })),
+      resetToSeed: () => set({ ...seed }),
 
-  deleteArticle: (id) =>
-    set((state) => ({ articles: state.articles.filter((a) => a.id !== id) })),
+      addArticle: (article) =>
+        set((state) => ({ articles: [article, ...state.articles] })),
 
-  deleteArticles: (ids) =>
-    set((state) => ({ articles: state.articles.filter((a) => !ids.includes(a.id)) })),
+      updateArticle: (id, updates) =>
+        set((state) => ({
+          articles: state.articles.map((a) => (a.id === id ? { ...a, ...updates } : a)),
+        })),
 
-  approveComment: (id) =>
-    set((state) => ({
-      comments: state.comments.map((c) => (c.id === id ? { ...c, approved: true } : c)),
-    })),
+      deleteArticle: (id) =>
+        set((state) => ({ articles: state.articles.filter((a) => a.id !== id) })),
 
-  rejectComment: (id) =>
-    set((state) => ({
-      comments: state.comments.map((c) => (c.id === id ? { ...c, approved: false } : c)),
-    })),
+      deleteArticles: (ids) =>
+        set((state) => ({ articles: state.articles.filter((a) => !ids.includes(a.id)) })),
 
-  deleteComment: (id) =>
-    set((state) => ({ comments: state.comments.filter((c) => c.id !== id) })),
+      approveComment: (id) =>
+        set((state) => ({
+          comments: state.comments.map((c) => (c.id === id ? { ...c, approved: true } : c)),
+        })),
 
-  addCategory: (category) =>
-    set((state) => ({ categories: [...state.categories, category] })),
+      rejectComment: (id) =>
+        set((state) => ({
+          comments: state.comments.map((c) => (c.id === id ? { ...c, approved: false } : c)),
+        })),
 
-  updateCategory: (id, updates) =>
-    set((state) => ({
-      categories: state.categories.map((c) => (c.id === id ? { ...c, ...updates } : c)),
-    })),
+      deleteComment: (id) =>
+        set((state) => ({ comments: state.comments.filter((c) => c.id !== id) })),
 
-  deleteCategory: (id) =>
-    set((state) => ({ categories: state.categories.filter((c) => c.id !== id) })),
+      addCategory: (category) =>
+        set((state) => ({ categories: [...state.categories, category] })),
 
-  addTag: (tag) =>
-    set((state) => ({ tags: [...state.tags, tag] })),
+      updateCategory: (id, updates) =>
+        set((state) => ({
+          categories: state.categories.map((c) => (c.id === id ? { ...c, ...updates } : c)),
+        })),
 
-  deleteTag: (id) =>
-    set((state) => ({ tags: state.tags.filter((t) => t.id !== id) })),
+      deleteCategory: (id) =>
+        set((state) => ({ categories: state.categories.filter((c) => c.id !== id) })),
 
-  updateAuthor: (id, updates) =>
-    set((state) => ({
-      authors: state.authors.map((a) => (a.id === id ? { ...a, ...updates } : a)),
-    })),
-}))
+      addTag: (tag) =>
+        set((state) => ({ tags: [...state.tags, tag] })),
+
+      deleteTag: (id) =>
+        set((state) => ({ tags: state.tags.filter((t) => t.id !== id) })),
+
+      updateAuthor: (id, updates) =>
+        set((state) => ({
+          authors: state.authors.map((a) => (a.id === id ? { ...a, ...updates } : a)),
+        })),
+    }),
+    { name: 'tariboon-admin' }
+  )
+)
