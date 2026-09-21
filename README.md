@@ -43,12 +43,14 @@ Tariboon (تریبون) is a fully-featured Persian news portal with 50 articles
 
 ### Public Site
 
-- **Home** — brand hero, featured stories with real imagery, latest feed, trending sidebar
-- **Article Page** — reading progress, likes, bookmarks, font size, print, share, related articles, comments
+- **Home** — news slider, thumbnails, editor picks, category boxes, gallery marquee
+- **Live feed** — `/live` auto-updating news stream
+- **Live markets** — `/markets` currency, gold, and crypto dashboard
+- **Article Page** — reading progress, likes, bookmarks, font size, print, share, tags, related articles, comments
 - **Command Search** — quick search with `Ctrl/Cmd + K`
 - **Bookmarks** — save articles locally in the browser
 - **Newsletter** — email signup persisted in localStorage
-- **Trending / Authors / Privacy** — dedicated production-style pages
+- **Trending / Authors / Privacy** — dedicated pages
 - **Category Pages** — filtered articles with sort options and pagination
 - **Search** — full-text search across titles, excerpts, authors, and tags
 - **Archive** — full article list with multi-filter (category, sort, date)
@@ -69,63 +71,11 @@ Tariboon (تریبون) is a fully-featured Persian news portal with 50 articles
 ### Design & UX
 
 - Full **RTL** layout with Persian locale (`fa-IR`)
-- Custom brand system: ink navy + signal crimson, **Lalezar** display + **Vazirmatn** body
+- Soft rose + teal palette, **Lalezar** display + **Vazirmatn** body
 - **Dark / Light mode** with `next-themes`
-- Category-matched Unsplash imagery for all 50 articles and author avatars
-- Mega category menu, breaking ticker, motion and hover polish
+- Article imagery via picsum seeds with SafeImage fallback
+- Market ticker in header, breaking news strip, sticky main nav
 - Fully **responsive** — mobile, tablet, desktop
-
----
-
-## Project Structure
-
-```
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx            # Home
-│   ├── post/[slug]/        # Article view
-│   ├── category/[slug]/    # Category listing
-│   ├── search/             # Search results
-│   ├── archive/            # Full archive
-│   ├── author/[slug]/      # Author profile
-│   ├── tag/[slug]/         # Tag listing
-│   ├── about/              # About page
-│   ├── contact/            # Contact form
-│   └── admin/              # Admin panel
-│       ├── articles/       # Article CRUD
-│       ├── comments/       # Comment moderation
-│       ├── categories/     # Category management
-│       ├── tags/           # Tag management
-│       ├── authors/        # Author management
-│       └── settings/       # Site settings
-│
-├── components/             # React components
-│   ├── header.tsx
-│   ├── footer.tsx
-│   ├── news-card.tsx       # 4 variants: hero, featured, compact, minimal
-│   ├── pagination.tsx
-│   ├── share-buttons.tsx
-│   ├── reading-progress.tsx
-│   ├── comment-form.tsx
-│   ├── category-badge.tsx
-│   ├── skeleton/
-│   └── ui/                 # shadcn/ui components
-│
-├── data/                   # Static data layer
-│   ├── articles.ts         # 50 articles + query helpers
-│   ├── authors.ts          # 8 authors
-│   ├── categories.ts       # 12 categories
-│   ├── tags.ts             # 27 tags
-│   └── comments.ts         # Mock comments
-│
-├── store/                  # Zustand stores
-│   ├── admin-store.ts      # Admin CRUD state
-│   └── ui-store.ts         # Search, filters, pagination
-│
-├── types/index.ts          # All TypeScript interfaces
-├── lib/data-utils.ts       # Filtering, pagination, sort helpers
-├── utils/format.ts         # Persian date, number, text formatting
-└── hooks/                  # Custom hooks (scroll, search, mobile)
-```
 
 ---
 
@@ -148,33 +98,6 @@ npm run build
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 Admin panel is at [http://localhost:3000/admin](http://localhost:3000/admin).
-
----
-
-## Data Model
-
-```typescript
-interface Article {
-  id: number
-  title: string
-  slug: string
-  excerpt: string
-  content: string        // HTML
-  image: string
-  category: string
-  categorySlug: string
-  author: Author
-  tags: Tag[]
-  publishedAt: string
-  readingTime: number    // minutes
-  views: number
-  featured: boolean
-  breaking: boolean
-  status: 'published' | 'draft'
-}
-```
-
-All data lives in `/data/*.ts` — no database or API required.
 
 ---
 
